@@ -150,7 +150,3 @@ class ActiveVoiceDetector():
                 active_run = False
                 print("active end")
             
-
-
-
-

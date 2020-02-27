@@ -11,6 +11,11 @@
 
 from vad import ActiveVoiceDetector
 
+
+"""
+TODO: three prime feature: energe, dominant frequency, SFM
+"""
+
 if __name__ == "__main__":
     active = ActiveVoiceDetector()
     active.vad()
