@@ -11,7 +11,7 @@ class ActiveVoiceDetector():
                 chunk=1200,
                 channels=1,
                 rate=44100,
-                energe_prime_thresh=40,
+                energe_prime_thresh=60000,
                 f_prime_thresh=185,
                 sf_prime_thresh=5):
         # number of sampling points of each frame
@@ -67,6 +67,7 @@ class ActiveVoiceDetector():
         energe = self.helper.calculate_frame_energy(audio_data)
         f = self.helper.calculate_dominant_frequncy(audio_data, self.RATE)
         sfm = self.helper.calculate_smf(audio_data)
+        # print(energe)
         return energe, f, sfm
 
     def _silence_min_value(self, audio_data):
@@ -88,16 +89,17 @@ class ActiveVoiceDetector():
         if (sf - self.min_sf) > self.sf_thresh:
             counter += 1
 
+        # print([e - self.min_e])
         active = False
 
         # silence case
-        if counter > 1:
+        if counter == 0:
             self.silence_counter += 1
             self.min_e = ((self.silence_counter * self.min_e) + e) / (self.silence_counter + 1)
             self.energe_thresh = self.ENERGE_PRIME_THRESH * np.log10(self.min_e)
-            active = True
-
         # active case
+        else:
+            active = True
 
         if active == True:
             return True
@@ -107,7 +109,7 @@ class ActiveVoiceDetector():
     def _audio_read(self):
         data = self.stream.read(self.CHUNK)
         string_data = np.frombuffer(data, dtype=np.short)
-        string_data = string_data / 1000
+        string_data = string_data / 10000
         return string_data
 
     def vad(self):
@@ -124,6 +126,7 @@ class ActiveVoiceDetector():
         print(self.f_thresh)
         print(self.sf_thresh)
 
+        print(self.min_e)
         print(self.min_f)
 
         active_frame_number = 0
