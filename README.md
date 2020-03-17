@@ -10,6 +10,7 @@
 5. Update the default parameters according to the new frame detected. 
 
 
+
 ## Reference 
 
 Moattar, Mohammad & Homayoonpoor, Mahdi. (2010). A simple but efficient real-time voice activity detection algorithm. European Signal Processing Conference. 
