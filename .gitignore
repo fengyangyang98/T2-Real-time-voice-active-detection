@@ -1,5 +1,4 @@
-
-*.pyc
+# *.pyc
 # !.README.md
 # !.vad.py
 # !.vehicle_whistle_detection.py
